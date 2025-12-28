@@ -326,11 +326,11 @@ class KITTI_2015(StereoDataset):
 
 
 class ICASDS_2025(StereoDataset):
-    def __init__(self, aug_params=None, root='/data/StereoData/icasds', image_set='training'):
+    def __init__(self, aug_params=None, root='/kaggle/working/icasds', image_set='training'):
         super(KITTI_2015, self).__init__(aug_params, sparse=True, reader=frame_utils.readDispKITTI)
         assert os.path.exists(root)
 
-        root_15 = '/data/StereoData/icasds/2025/'  
+        root_15 = '/kaggle/working/icasds/2025/'  
         image1_list = sorted(glob(os.path.join(root_15, image_set, 'image_2/*_10.png')))
         image2_list = sorted(glob(os.path.join(root_15, image_set, 'image_3/*_10.png')))
         disp_list = sorted(glob(os.path.join(root_15, 'training', 'disp_noc_0/*_10.png'))) if image_set == 'training' else [osp.join(root, 'training/disp_occ_0/000085_10.png')]*len(image1_list)
