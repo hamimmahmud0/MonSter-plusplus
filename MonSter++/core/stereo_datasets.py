@@ -325,6 +325,23 @@ class KITTI_2015(StereoDataset):
             self.disparity_list += [ disp ]
 
 
+class ICASDS_2025(StereoDataset):
+    def __init__(self, aug_params=None, root='/data/StereoData/icasds', image_set='training'):
+        super(KITTI_2015, self).__init__(aug_params, sparse=True, reader=frame_utils.readDispKITTI)
+        assert os.path.exists(root)
+
+        root_15 = '/data/StereoData/icasds/2025/'  
+        image1_list = sorted(glob(os.path.join(root_15, image_set, 'image_2/*_10.png')))
+        image2_list = sorted(glob(os.path.join(root_15, image_set, 'image_3/*_10.png')))
+        disp_list = sorted(glob(os.path.join(root_15, 'training', 'disp_noc_0/*_10.png'))) if image_set == 'training' else [osp.join(root, 'training/disp_occ_0/000085_10.png')]*len(image1_list)
+
+        for idx, (img1, img2, disp) in enumerate(zip(image1_list, image2_list, disp_list)):
+            self.image_list += [ [img1, img2] ]
+            self.disparity_list += [ disp ]
+
+
+
+
 class VKITTI2(StereoDataset):
     def __init__(self, aug_params=None, root='./vkitti2'):
         super(VKITTI2, self).__init__(aug_params, sparse=False, reader=frame_utils.readDispVKITTI2)

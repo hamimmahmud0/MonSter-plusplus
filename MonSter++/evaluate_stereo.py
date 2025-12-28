@@ -52,7 +52,7 @@ def validate_eth3d(model, iters=32, mixed_prec=False):
     """ Peform validation using the ETH3D (train) split """
     model.eval()
     aug_params = {}
-    val_dataset = datasets.ETH3D(aug_params)
+    val_dataset = datasets.ICASDS_2025(aug_params)
 
     out_list, epe_list = [], []
     for val_id in range(len(val_dataset)):
